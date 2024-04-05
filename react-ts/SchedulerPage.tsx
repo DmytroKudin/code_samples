@@ -127,12 +127,12 @@ function PlanrSection() {
       ref={ref}
     >
       <CustomButton
-        onClick={() => setSelectedTab('craigslist')}
-        className={`posting-button ${selectedTab === 'craigslist' && 'active'}`}
+        onClick={() => setSelectedTab('data')}
+        className={`posting-button ${selectedTab === 'data' && 'active'}`}
         wrapperClassname="posting-button-wrap"
         variant="outlined-box"
       >
-        Craigslist
+        data
       </CustomButton>
     </div>
   );
@@ -187,12 +187,12 @@ function PlanrSection() {
               && (
               <Dropdown.Item
                 onClick={() => {
-                  navigate(`${Pages.PlanrSettingPure}craigslist/${activeTab}?urgent=1`);
-                  setDetailsData({ type: 'craigslist', urgent: true });
+                  navigate(`${Pages.PlanrSettingPure}data/${activeTab}?urgent=1`);
+                  setDetailsData({ type: 'data', urgent: true });
                   setTabDropdownOpen(false);
                 }}
                 style={{
-                  color: (detailsData.urgent && detailsData.type === 'craigslist') ? ApplicationTheme.primaryColor : '#575757',
+                  color: (detailsData.urgent && detailsData.type === 'data') ? ApplicationTheme.primaryColor : '#575757',
                   width: '157px',
                 }}
               >
@@ -201,12 +201,12 @@ function PlanrSection() {
               )}
                 <Dropdown.Item
                   onClick={() => {
-                    navigate(`${Pages.PlanrSettingPure}craigslist/${activeTab}`);
-                    setDetailsData({ type: 'craigslist', urgent: false });
+                    navigate(`${Pages.PlanrSettingPure}data/${activeTab}`);
+                    setDetailsData({ type: 'data', urgent: false });
                     setTabDropdownOpen(false);
                   }}
                   style={{
-                    color: (!detailsData.urgent && detailsData.type === 'craigslist') ? ApplicationTheme.primaryColor : '#575757',
+                    color: (!detailsData.urgent && detailsData.type === 'data') ? ApplicationTheme.primaryColor : '#575757',
                     width: '157px',
                   }}
                 >
@@ -218,14 +218,14 @@ function PlanrSection() {
           : (
             <CustomButton
               onClick={() => {
-                setSelectedTab('craigslist');
-                setDetailsData({ type: 'craigslist' });
+                setSelectedTab('data');
+                setDetailsData({ type: 'data' });
               }}
-              className={`posting-button ${selectedTab === 'craigslist' && 'active'}`}
+              className={`posting-button ${selectedTab === 'data' && 'active'}`}
               wrapperClassname="posting-button-wrap"
               variant="outlined-box"
             >
-              Craigslist
+              data
             </CustomButton>
           )}
       </div>
@@ -261,7 +261,7 @@ function PlanrSection() {
           </div>
         </div>
         )}
-        {detailsData.type === 'craigslist' && activeTab !== 'profiles' && !detailsData.urgent
+        {detailsData.type === 'data' && activeTab !== 'profiles' && !detailsData.urgent
         && (
         <div className="amount-container">
           <div className="amount-box" id="available-box">

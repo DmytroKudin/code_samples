@@ -71,9 +71,9 @@ export const imapService = {
                                             return;
                                         }
                                         mail.attributes = msg.attributes;
-                                        if (mail.from.value[0].address.includes('@reply.craigslist.org')) {
+                                        if (mail.from.value[0].address.includes('@reply.data.org')) {
                                             checkIncome(mail, seqno);
-                                        } else if (mail.from.value[0].address === 'robot@craigslist.org') {
+                                        } else if (mail.from.value[0].address === 'robot@data.org') {
                                             checkCreateAd(mail, seqno)
                                         } else {
                                             checkReplays(mail, seqno);
@@ -104,8 +104,8 @@ export const imapService = {
             try {
                 let startIndex
                 //It's a way of determining that a letter from a customer to a worker
-                if (mail?.html) startIndex = mail.html.indexOf("Original craigslist post:");
-                if (mail?.text) startIndex = mail.text.indexOf("Original craigslist post:");
+                if (mail?.html) startIndex = mail.html.indexOf("Original data post:");
+                if (mail?.text) startIndex = mail.text.indexOf("Original data post:");
 
                 if (startIndex !== -1) {
                     let substring
@@ -126,7 +126,7 @@ export const imapService = {
                         if (!email) throw new Error('Worker email not found')
                         //forwarding email from customer to worker
                         await imapService.sendMail(
-                            `Vehicle GoGo Craigslist: ${messageId}`,
+                            `Vehicle GoGo data: ${messageId}`,
                             mail.text,
                             email
                         );
@@ -177,8 +177,8 @@ export const imapService = {
 //Function for forwarding an email from the worker to the customer
         function checkReplays(mail, seqnoMsg) {
             try {
-                if (!mail.from.value[0].address.includes('craigslist')) {
-                    const regex = /Vehicle GoGo Craigslist: <(.+)>/;
+                if (!mail.from.value[0].address.includes('data')) {
+                    const regex = /Vehicle GoGo data: <(.+)>/;
                     //getting messageId from subject to reply for customer
                     const match = regex.exec(mail.subject);
                     if (match) {

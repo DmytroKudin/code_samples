@@ -1,5 +1,5 @@
-const postingManageUrl = 'https://post.craigslist.org/manage'
-const accountClLink = 'https://accounts.craigslist.org/login'
+const postingManageUrl = 'https://post.data.org/manage'
+const accountClLink = 'https://accounts.data.org/login'
 const vehicleGoGoLink = "https://dev.inventory.vehiclegogo.com"
 
 class ExecuteScripts {
@@ -78,7 +78,7 @@ class ExecuteScripts {
 
             const workerId = await this.getWorkerId()
 
-            const response = await fetch(`${vehicleGoGoLink}/api/worker/${workerId}/plans/craigslist?status=Urgent&plan_ids[]=${itemId}`, {
+            const response = await fetch(`${vehicleGoGoLink}/api/worker/${workerId}/plans/data?status=Urgent&plan_ids[]=${itemId}`, {
                 method: 'GET'
             })
             const {data} = await response.json()
@@ -110,7 +110,7 @@ class ExecuteScripts {
         try {
             const workerId = await this.getWorkerId(planIds);
             const query = this._preparingQuery(planIds)
-            const response = await fetch(`${vehicleGoGoLink}/api/worker/${workerId}/plans/craigslist?status=Successful${query}`, {
+            const response = await fetch(`${vehicleGoGoLink}/api/worker/${workerId}/plans/data?status=Successful${query}`, {
                 method: 'GET'
             })
             const {data: res} = await response.json();
@@ -276,7 +276,7 @@ class ExecuteScripts {
                 if (results[0].result?.accountCL) this.accountCL = results[0].result?.accountCL
                 if (results[0].result && results[0].result?.error) {
                     if (results[0].result?.error === "no auth") {
-                        this.handleError(`Please authorise <a target="_blank" href="https://craigslist.org" >https://craigslist.org</a> and re-post the ad`);
+                        this.handleError(`Please authorise <a target="_blank" href="https://data.org" >https://data.org</a> and re-post the ad`);
                     } else {
                         this.handleError()
                     }
@@ -494,7 +494,7 @@ class ExecuteScripts {
 
 let exclusionTabs = [];
 
-chrome.tabs.query({url: ["*://*.craigslist.org/*", "*://*.vehiclegogo.com/*"]}, (tabs) => {
+chrome.tabs.query({url: ["*://*.data.org/*", "*://*.vehiclegogo.com/*"]}, (tabs) => {
     console.log('tabs', tabs)
     for (let tab of tabs) {
         exclusionTabs.push(tab.id);
@@ -563,7 +563,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
                                     await chrome.tabs.update(tabId, {url: accountClLink + '/home'});
                                 }
 
-                                if (!isHomePage) executeScripts.handleError("Please log in Craigslist")
+                                if (!isHomePage) executeScripts.handleError("Please log in data")
 
                                 if (executeScripts.isError) {
                                     executeScripts.handleError()
